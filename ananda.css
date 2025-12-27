@@ -130,11 +130,14 @@ a:hover {
     position: sticky;
     top: 80px;
     height: fit-content;
-    padding: 2rem 0 2rem 2rem;
+    padding: 2rem 0 2rem 1rem;
 }
 
 .profile-section {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .profile-image-wrapper {
@@ -175,12 +178,14 @@ a:hover {
     font-size: 1rem;
     color: var(--text-light);
     margin-bottom: 0.25rem;
+    text-align: center;
 }
 
 .profile-institution {
     font-size: 0.9rem;
     color: var(--text-light);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
 .profile-location {
@@ -191,31 +196,39 @@ a:hover {
     color: var(--text-light);
     font-size: 0.9rem;
     margin-bottom: 2rem;
+    width: 100%;
 }
 
 .social-links {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.3rem;
     align-items: flex-start;
-    padding: 0 1rem;
+    width: 100%;
+    padding-left: 0.5rem;
+    margin-top: 1rem;
 }
 
+/* --- Cari bagian ini dan ganti --- */
 .social-link {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     color: var(--text-light);
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    border-radius: 6px;
+    width: fit-content;
+    padding: 0.25rem 0.5rem; /* Menambah sedikit padding agar area klik lebih luas */
     transition: all 0.3s ease;
+    position: relative;      /* Memastikan posisi relatif untuk z-index */
+    z-index: 20;             /* Mengangkat link ke lapisan paling atas */
+    cursor: pointer;         /* Memaksa kursor menjadi tangan saat diarahkan */
+    pointer-events: auto;    /* Memastikan elemen menerima input klik */
 }
 
 .social-link:hover {
-    background: var(--hover);
     color: var(--primary);
     transform: translateX(5px);
+    background: var(--hover); /* Memberikan feedback visual saat diarahkan */
+    border-radius: 4px;
 }
 
 .social-link span {
@@ -304,6 +317,13 @@ a:hover {
     color: var(--text);
     transition: all 0.3s ease;
     cursor: default;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.skill-badge i {
+    font-size: 1.3rem;
 }
 
 .skill-badge:hover {
@@ -314,19 +334,75 @@ a:hover {
     box-shadow: 0 4px 12px var(--shadow);
 }
 
+.skill-badge:hover i {
+    transform: scale(1.1);
+}
+
 /* Projects */
 .project-item {
-    padding: 2rem 0;
+    padding: 0 0 3rem 0;
+    margin-bottom: 3rem;
     border-bottom: 1px solid var(--border);
-    transition: all 0.3s ease;
 }
 
 .project-item:last-child {
     border-bottom: none;
+    margin-bottom: 0;
 }
 
-.project-item:hover {
-    transform: translateX(5px);
+.project-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    position: relative;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    display: block;
+}
+
+.project-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.project-image:hover img {
+    transform: scale(1.08);
+}
+
+.project-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(59, 130, 246, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-image:hover .project-image-overlay {
+    opacity: 1;
+}
+
+.project-overlay-text {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.project-content {
+    padding: 0;
 }
 
 .project-header {
@@ -368,12 +444,23 @@ a:hover {
     font-size: 0.85rem;
     border: 1px solid var(--border);
     transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.tag i {
+    font-size: 1rem;
 }
 
 .tag:hover {
     background: var(--primary);
     color: white;
     border-color: var(--primary);
+}
+
+.tag:hover i {
+    transform: scale(1.1);
 }
 
 .project-links {
@@ -413,6 +500,32 @@ a:hover {
     padding: 1.5rem 0;
     border-bottom: 1px solid var(--border);
     transition: all 0.3s ease;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.cv-logo {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+}
+
+.org-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.cv-item-content {
+    flex: 1;
 }
 
 .cv-item:last-child {
@@ -421,6 +534,11 @@ a:hover {
 
 .cv-item:hover {
     transform: translateX(5px);
+}
+
+.cv-item:hover .cv-logo {
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px var(--shadow);
 }
 
 .cv-item-header {
@@ -535,21 +653,26 @@ a:hover {
 
 /* Footer */
 .footer {
-    background: var(--bg-primary);
-    border-top: 1px solid var(--border);
-    padding: 2rem 0;
-    margin-top: 4rem;
-}
-
-.footer-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    background: #1e293b; /* Warna biru sangat gelap */
+    color: #e4e4e4;
+    padding: 2.5rem 0;
     text-align: center;
-    color: var(--text-light);
-    font-size: 0.9rem;
+    margin-top: 5rem;
 }
 
+.footer-container p {
+    margin-bottom: 0.5rem;
+}
+
+.footer-container a {
+    color: #6b9efc;
+    text-decoration: underline;
+}
+.heart {
+    display: inline-block;
+    animation: pulse 1.5s infinite;
+    color: var(--primary);
+}
 /* Responsive */
 @media (max-width: 1024px) {
     .main-container {
@@ -560,31 +683,29 @@ a:hover {
     .sidebar {
         position: relative;
         top: 0;
-        padding: 2rem;
+        padding: 2rem 1rem;
         background: var(--bg-primary);
         border-bottom: 1px solid var(--border);
+        width: 100%;
     }
 
     .profile-section {
-        display: grid;
-        grid-template-columns: 180px 1fr;
-        gap: 2rem;
-        text-align: left;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-    }
-
-    .profile-image-wrapper {
-        margin: 0;
+        text-align: center;
     }
 
     .social-links {
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding: 0;
+        align-items: flex-start; 
+        padding-left: 1rem;
+        width: fit-content;  
+        margin: 1rem auto 0 0; 
     }
 
     .content {
         padding: 2rem;
+        max-width: 100%;
     }
 }
 
@@ -616,16 +737,16 @@ a:hover {
     }
 
     .profile-section {
-        grid-template-columns: 1fr;
         text-align: center;
     }
 
     .profile-image-wrapper {
-        margin: 0 auto;
+        margin: 0 auto 1rem;
     }
 
     .social-links {
-        justify-content: center;
+        align-items: flex-start;
+        padding-left: 0.5rem;
     }
 
     .project-header,

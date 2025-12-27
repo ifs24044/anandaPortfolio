@@ -177,6 +177,101 @@ document.querySelectorAll('.project-item').forEach((item, index) => {
     observer.observe(item);
 });
 
+// Project image click to enlarge
+document.querySelectorAll('.project-image').forEach(projectImg => {
+    projectImg.addEventListener('click', function(e) {
+        // Don't trigger if clicking on overlay text
+        if (e.target.classList.contains('project-overlay-text')) return;
+        
+        const img = this.querySelector('img');
+        if (!img) return;
+        
+        // Create fullscreen overlay
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.3s ease;
+        `;
+        
+        const enlargedImg = document.createElement('img');
+        enlargedImg.src = img.src;
+        enlargedImg.style.cssText = `
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: zoomIn 0.3s ease;
+        `;
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.innerHTML = '✕';
+        closeBtn.style.cssText = `
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            z-index: 10001;
+        `;
+        
+        closeBtn.addEventListener('mouseenter', () => {
+            closeBtn.style.transform = 'scale(1.1) rotate(90deg)';
+        });
+        
+        closeBtn.addEventListener('mouseleave', () => {
+            closeBtn.style.transform = 'scale(1) rotate(0deg)';
+        });
+        
+        overlay.appendChild(enlargedImg);
+        overlay.appendChild(closeBtn);
+        document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden';
+        
+        // Close on click
+        const closeOverlay = () => {
+            overlay.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => {
+                document.body.removeChild(overlay);
+                document.body.style.overflow = '';
+            }, 300);
+        };
+        
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeOverlay();
+            }
+        });
+        
+        closeBtn.addEventListener('click', closeOverlay);
+        
+        // Close on ESC key
+        const handleEsc = (e) => {
+            if (e.key === 'Escape') {
+                closeOverlay();
+                document.removeEventListener('keydown', handleEsc);
+            }
+        };
+        document.addEventListener('keydown', handleEsc);
+    });
+});
+
 // Observe CV items with stagger effect
 document.querySelectorAll('.cv-item').forEach((item, index) => {
     item.style.opacity = '0';
