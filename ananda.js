@@ -323,40 +323,6 @@ if (!document.querySelector('#ripple-animation')) {
 }
 
 // Contact Form Handling
-const contactForm = document.getElementById('contactForm');
-
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const submitBtn = this.querySelector('.btn-submit');
-    const originalText = submitBtn.textContent;
-    
-    // Show loading state
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-    submitBtn.style.opacity = '0.7';
-    
-    // Simulate sending (replace with actual form submission)
-    setTimeout(() => {
-        // Success state
-        submitBtn.textContent = '✓ Message Sent!';
-        submitBtn.style.background = '#10b981';
-        
-        // Show success notification
-        showNotification('Message sent successfully!', 'success');
-        
-        // Reset form
-        contactForm.reset();
-        
-        // Reset button after 3 seconds
-        setTimeout(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.style.background = '';
-            submitBtn.disabled = false;
-            submitBtn.style.opacity = '1';
-        }, 3000);
-    }, 1500);
-});
 
 // Notification function
 function showNotification(message, type = 'info') {

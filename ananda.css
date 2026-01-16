@@ -193,7 +193,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    color: var(--text-light);
+    color:#0d6efd;
     font-size: 0.9rem;
     margin-bottom: 2rem;
     width: 100%;
@@ -801,4 +801,204 @@ a:hover {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--secondary);
+}
+
+/* Modern & Elegant Contact Section */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+    max-width: 800px;
+}
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.contact-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s ease;
+}
+
+.contact-card:hover::before {
+    left: 100%;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    border-color: currentColor;
+}
+
+/* Icon Container - Minimalist Design */
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.contact-icon svg {
+    width: 24px;
+    height: 24px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.contact-card:hover .contact-icon {
+    transform: scale(1.08) rotate(5deg);
+}
+
+.contact-card:hover .contact-icon svg {
+    transform: scale(1.1);
+}
+
+/* Text Content */
+.contact-info h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a202c;
+    letter-spacing: -0.01em;
+    transition: color 0.3s ease;
+}
+
+.contact-info p {
+    margin: 0;
+    font-size: 0.825rem;
+    color: #718096;
+    font-weight: 400;
+    word-break: break-word;
+    transition: color 0.3s ease;
+}
+
+.contact-card:hover .contact-info h3 {
+    color: currentColor;
+}
+
+/* WhatsApp - Modern Green */
+.contact-card.whatsapp {
+    color: #25D366;
+}
+
+.contact-card.whatsapp .contact-icon {
+    background: linear-gradient(135deg, #E8F8F0 0%, #D1F2E3 100%);
+    color: #25D366;
+}
+
+.contact-card.whatsapp:hover {
+    background: linear-gradient(135deg, #F0FDF4 0%, #E8F8F0 100%);
+}
+
+/* Email - Modern Red */
+.contact-card.email {
+    color: #EA4335;
+}
+
+.contact-card.email .contact-icon {
+    background: linear-gradient(135deg, #FEEEF0 0%, #FDD9DC 100%);
+    color: #EA4335;
+}
+
+.contact-card.email:hover {
+    background: linear-gradient(135deg, #FEF2F2 0%, #FEEEF0 100%);
+}
+
+/* Instagram - Modern Gradient */
+.contact-card.instagram {
+    color: #E1306C;
+}
+
+.contact-card.instagram .contact-icon {
+    background: linear-gradient(135deg, #FCE8F0 0%, #F9D5E5 100%);
+    color: #E1306C;
+}
+
+.contact-card.instagram:hover {
+    background: linear-gradient(135deg, #FDF2F8 0%, #FCE8F0 100%);
+}
+
+/* GitHub - Modern Dark */
+.contact-card.github {
+    color: #24292e;
+}
+
+.contact-card.github .contact-icon {
+    background: linear-gradient(135deg, #F6F8FA 0%, #E9ECF0 100%);
+    color: #24292e;
+}
+
+.contact-card.github:hover {
+    background: linear-gradient(135deg, #FAFBFC 0%, #F6F8FA 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .contact-card {
+        padding: 1.25rem;
+    }
+    
+    .contact-icon {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+    }
+    
+    .contact-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .contact-info h3 {
+        font-size: 0.95rem;
+    }
+    
+    .contact-info p {
+        font-size: 0.8rem;
+    }
+}
+
+/* Dark Mode Support (Optional) */
+@media (prefers-color-scheme: dark) {
+    .contact-card {
+        background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        border-color: #4a5568;
+    }
+    
+    .contact-info h3 {
+        color: #f7fafc;
+    }
+    
+    .contact-info p {
+        color: #cbd5e0;
+    }
 }
