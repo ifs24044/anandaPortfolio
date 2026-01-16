@@ -1,4 +1,73 @@
-// Mobile Menu Toggle
+// Get theme toggle button
+const themeToggle = document.getElementById('themeToggle');
+
+// Check for saved theme preference or default to light mode
+const currentTheme = localStorage.getItem('theme') || 'light';
+
+// Apply saved theme on page load
+document.documentElement.setAttribute('data-theme', currentTheme);
+
+// Theme toggle function
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    // Add transition class for smooth change
+    document.documentElement.style.transition = 'all 0.3s ease';
+    
+    // Set new theme
+    document.documentElement.setAttribute('data-theme', newTheme);
+    
+    // Save preference to localStorage
+    localStorage.setItem('theme', newTheme);
+    
+    // Add animation to button
+    themeToggle.style.transform = 'rotate(360deg)';
+    
+    setTimeout(() => {
+        themeToggle.style.transform = '';
+    }, 300);
+    
+    // Optional: Show notification
+    showNotification(
+        `Switched to ${newTheme === 'dark' ? '🌙 Dark' : '☀️ Light'} mode`, 
+        'success'
+    );
+}
+
+// Event listener for theme toggle
+if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+}
+
+// Optional: Keyboard shortcut (Ctrl/Cmd + Shift + L)
+document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'L') {
+        e.preventDefault();
+        toggleTheme();
+    }
+});
+
+// Optional: Auto detect system theme preference
+function detectSystemTheme() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+    }
+    return 'light';
+}
+
+// Optional: Listen for system theme changes
+if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+        }
+    });
+}
+
+// Log theme initialization
+console.log(`Theme initialized: ${currentTheme} mode 🎨`);
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.querySelector('.nav-links');
 
